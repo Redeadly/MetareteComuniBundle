@@ -1,0 +1,27 @@
+{
+    "name": "metarete/comuni-bundle",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "description": "Symfony Bundle to load and use the updated list of Italian municipalities, CAP, and ISTAT codes.",
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=8.1",
+        "symfony/framework-bundle": "^6.4|^7.0",
+        "symfony/twig-bundle": "^7.2",
+        "symfony/console": "7.2.*",
+        "doctrine/orm": "^2|^3"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Metarete\\ComuniBundle\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Metarete\\ComuniBundle\\Tests\\": "tests/"
+        }
+    }
+}
