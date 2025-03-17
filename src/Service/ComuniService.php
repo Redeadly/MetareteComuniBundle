@@ -79,4 +79,29 @@ class ComuniService
         return array_map(fn($item) => $item['cap'], $result);
     }
 
+    /**
+     * Retrieves the codice ISTAT of a comune given its exact name and CAP.
+     *
+     * This method queries the database to get the codice istat of a comune given its name and CAP.
+     * The result is a string containing the codice istat or null if no match is found.
+     *
+     * @param string $comune The name of the comune.
+     * @param string $cap The CAP of the comune.
+     * @return string|null The codice istat of the comune or null if no match is found.
+     */
+    public function getCodiceISTATFromComuneAndCap(string $comune, string $cap): string|null
+    {
+        $query = $this->entityManager->createQueryBuilder()
+            ->select('DISTINCT c.codiceIstat')
+            ->from('Metarete\ComuniBundle\Entity\MetareteComune', 'c')
+            ->where('c.denominazioneIta = :comune')
+            ->andWhere('c.cap = :cap')
+            ->setParameter('comune', $comune)
+            ->setParameter('cap', $cap)
+            ->getQuery();
+        $result = $query->getOneOrNullResult();
+
+        return ($result ? $result['codiceIstat'] : null);
+    }
+
 }
