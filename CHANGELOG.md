@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.4 (2025-03-18)
+
+- added `getComuniList` service
+
 ## 1.0.3 (2025-03-18)
 
 - fix entity repository as a service

@@ -11,6 +11,25 @@ class ComuniService
         private readonly EntityManagerInterface $entityManager,
     ) {}
     
+    /**
+     * Retrieves a list of distinct comune names (denominazioneIta) from the MetareteComune entity.
+     *
+     * This method constructs a query using the entity manager to select distinct comune names,
+     * orders them in ascending order, and returns the result as an array of strings.
+     *
+     * @return array An array of distinct comune names (denominazioneIta).
+     */
+    public function getComuniList(): array
+    {
+        $query = $this->entityManager->createQueryBuilder()
+            ->select('DISTINCT c.denominazioneIta')
+            ->from('Metarete\ComuniBundle\Entity\MetareteComune', 'c')
+            ->orderBy('c.denominazioneIta', 'ASC')
+            ->getQuery();
+        $result = $query->getResult();
+
+        return array_map(fn($item) => $item['denominazioneIta'], $result);
+    }
 
     /**
      * Retrieves a list of distinct province abbreviations (siglaProvincia) from the MetareteComune entity.
