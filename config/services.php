@@ -1,6 +1,8 @@
 <?php
 
+use Doctrine\Persistence\ManagerRegistry;
 use Metarete\ComuniBundle\Command\MetareteComuniLoadCommand;
+use Metarete\ComuniBundle\Repository\MetareteComuneRepository;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 use Symfony\Component\DependencyInjection\Reference;
 
@@ -24,6 +26,10 @@ return static function (ContainerConfigurator $container): void {
             ->set(MetareteComuniLoadCommand::class)
                 ->arg('$entityManager', new Reference('doctrine.orm.entity_manager'))
                 ->tag('console.command')
+                ->public()
+            ->set(MetareteComuneRepository::class)
+                ->arg('$registry', new Reference(ManagerRegistry::class))
+                ->tag('doctrine.repository_service')
                 ->public()
     ;
 

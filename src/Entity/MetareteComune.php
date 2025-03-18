@@ -64,6 +64,11 @@ class MetareteComune
     #[ORM\Column(type: 'decimal', precision: 10, scale: 4)]
     private ?float $superficieKmq = null;
 
+    public function __toString(): string
+    {
+        return $this->denominazioneIta ?? '';
+    }
+
     public function getId(): ?int
     {
         return $this->id;
