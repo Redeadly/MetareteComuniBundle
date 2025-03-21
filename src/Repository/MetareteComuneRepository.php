@@ -7,7 +7,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Metarete\ComuniBundle\Entity\MetareteComune;
 
 /**
- * @extends ServiceEntityRepository<Comune>
+ * @extends ServiceEntityRepository<MetareteComune>
  */
 class MetareteComuneRepository extends ServiceEntityRepository
 {
