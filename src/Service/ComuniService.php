@@ -10,14 +10,14 @@ class ComuniService
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
     ) {}
-    
+
     /**
      * Retrieves a list of distinct comune names (denominazioneIta) from the MetareteComune entity.
      *
      * This method constructs a query using the entity manager to select distinct comune names,
      * orders them in ascending order, and returns the result as an array of strings.
      *
-     * @return array An array of distinct comune names (denominazioneIta).
+     * @return array<string> An array of distinct comune names (denominazioneIta).
      */
     public function getComuniList(): array
     {
@@ -28,7 +28,7 @@ class ComuniService
             ->getQuery();
         $result = $query->getResult();
 
-        return array_map(fn($item) => $item['denominazioneIta'], $result);
+        return array_map(fn($item): string => $item['denominazioneIta'], $result);
     }
 
     /**
@@ -37,7 +37,7 @@ class ComuniService
      * This method constructs a query using the entity manager to select distinct province abbreviations,
      * orders them in ascending order, and returns the result as an array of strings.
      *
-     * @return array An array of distinct province abbreviations (siglaProvincia).
+     * @return array<string> An array of distinct province abbreviations (siglaProvincia).
      */
     public function getProvinceList(): array
     {
@@ -48,7 +48,7 @@ class ComuniService
             ->getQuery();
         $result = $query->getResult();
 
-        return array_map(fn($item) => $item['siglaProvincia'], $result);
+        return array_map(fn($item): string => $item['siglaProvincia'], $result);
     }
 
     /**
@@ -59,7 +59,7 @@ class ComuniService
      * The results are ordered in ascending order.
      *
      * @param string $comune The codice istat or name of the comune to filter the CAPs.
-     * @return array An array of unique CAPs sorted in ascending order.
+     * @return array<string> An array of unique CAPs sorted in ascending order.
      */
     public function getCAPListFromComune(string $comune): array
     {
@@ -71,10 +71,10 @@ class ComuniService
             ->orderBy('c.cap', 'ASC')
             ->getQuery();
             $result = $query->getResult();
-            
-            return array_map(fn($item) => $item['cap'], $result);
+
+            return array_map(fn($item): string => $item['cap'], $result);
     }
-        
+
     /**
      * Retrieves a list of unique CAP (postal codes) from a given province.
      *
@@ -82,7 +82,7 @@ class ComuniService
      * The results are ordered in ascending order.
      *
      * @param string $provincia The province code to filter the CAPs.
-     * @return array An array of unique CAPs sorted in ascending order.
+     * @return array<string> An array of unique CAPs sorted in ascending order.
      */
     public function getCAPListFromProvincia(string $provincia): array
     {
@@ -95,7 +95,7 @@ class ComuniService
             ->getQuery();
         $result = $query->getResult();
 
-        return array_map(fn($item) => $item['cap'], $result);
+        return array_map(fn($item): string => $item['cap'], $result);
     }
 
     /**
