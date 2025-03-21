@@ -43,8 +43,11 @@ class MetareteComuniLoadCommand extends Command
             return Command::FAILURE;
         }
 
+        $data = [];
         $jsonData = file_get_contents($filePath);
-        $data = json_decode($jsonData, true);
+        if ($jsonData) {
+            $data = json_decode($jsonData, true);
+        }
 
         if (json_last_error() !== JSON_ERROR_NONE) {
             $io->error('Invalid JSON data');
