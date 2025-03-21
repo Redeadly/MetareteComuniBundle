@@ -3,3 +3,4 @@ composer.lock
 composer.phar
 /nbproject/
 /nbproject/private/
+phpstan.neon
