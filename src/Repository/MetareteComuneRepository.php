@@ -2,9 +2,9 @@
 
 namespace Metarete\ComuniBundle\Repository;
 
-use Metarete\ComuniBundle\Entity\MetareteComune;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Metarete\ComuniBundle\Entity\MetareteComune;
 
 /**
  * @extends ServiceEntityRepository<Comune>
