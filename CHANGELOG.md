@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.5 (2025-03-18)
+
+- added Symfony 7.3.* compatibility
+
 ## 1.0.4 (2025-03-18)
 
 - added `getComuniList` service
@@ -15,7 +19,7 @@
 
 ## 1.0.1 (2025-03-14)
 
-- minor bug-fig in composer dependencies
+- minor bug-fix in composer dependencies
 
 ## 1.0.0 (2025-03-14)
 
