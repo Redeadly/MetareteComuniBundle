@@ -3,6 +3,7 @@
 namespace Metarete\ComuniBundle\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
+use Metarete\ComuniBundle\Entity\MetareteComune;
 
 class ComuniService
 {
@@ -121,6 +122,54 @@ class ComuniService
         $result = $query->getOneOrNullResult();
 
         return ($result ? $result['codiceIstat'] : null);
+    }
+
+    /**
+     * Import a list of [MetareteComuni] from an associative array (decoded from JSON).
+     *
+     * @param array $data
+     * @return int count of imported [MetareteComuni]
+     */
+    public function importComuniFromArray(array $data): int
+    {
+        $count = 0;
+        foreach ($data as $item) {
+            $comune = new MetareteComune();
+            $comune->setCodiceIstat($item['codice_istat']);
+            $comune->setDenominazioneItaAltra($item['denominazione_ita_altra']);
+            $comune->setDenominazioneIta($item['denominazione_ita']);
+            $comune->setDenominazioneAltra($item['denominazione_altra']);
+            $comune->setCap($item['cap']);
+            $comune->setSiglaProvincia($item['sigla_provincia']);
+            $comune->setDenominazioneProvincia($item['denominazione_provincia']);
+            $comune->setTipologiaProvincia($item['tipologia_provincia']);
+            $comune->setCodiceRegione($item['codice_regione']);
+            $comune->setDenominazioneRegione($item['denominazione_regione']);
+            $comune->setTipologiaRegione($item['tipologia_regione']);
+            $comune->setRipartizioneGeografica($item['ripartizione_geografica']);
+            $comune->setFlagCapoluogo($item['flag_capoluogo']);
+            $comune->setCodiceBelfiore($item['codice_belfiore']);
+            $comune->setLat((float)$item['lat']);
+            $comune->setLon((float)$item['lon']);
+            $comune->setSuperficieKmq((float)$item['superficie_kmq']);
+
+            $this->entityManager->persist($comune);
+            $count++;
+        }
+        $this->entityManager->flush();
+
+        return $count;
+    }
+
+    /**
+     * Truncate [MetareteComuni] table.
+     */
+    public function truncateComuni(): void
+    {
+        $connection = $this->entityManager->getConnection();
+        $platform = $connection->getDatabasePlatform();
+        $cmd = $this->entityManager->getClassMetadata(MetareteComune::class);
+        $connection->executeStatement($platform->getTruncateTableSQL($cmd->getTableName(), true));
     }
 
 }
