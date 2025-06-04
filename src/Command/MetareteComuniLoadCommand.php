@@ -53,6 +53,12 @@ class MetareteComuniLoadCommand extends Command
             return Command::FAILURE;
         }
 
+        if(empty($data)) {
+            $io->error('No data found in the JSON file');
+            return Command::FAILURE;
+        }
+
+        $this->comuniService->truncateComuni();
         $num = $this->comuniService->importComuniFromArray($data);
         $io->success("$num comuni successfully loaded into the database.");
 
