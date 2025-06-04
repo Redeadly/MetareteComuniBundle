@@ -161,4 +161,15 @@ class ComuniService
         return $count;
     }
 
+    /**
+     * Truncate [MetareteComuni] table.
+     */
+    public function truncateComuni(): void
+    {
+        $connection = $this->entityManager->getConnection();
+        $platform = $connection->getDatabasePlatform();
+        $cmd = $this->entityManager->getClassMetadata(MetareteComune::class);
+        $connection->executeStatement($platform->getTruncateTableSQL($cmd->getTableName(), true));
+    }
+
 }
